@@ -1,6 +1,8 @@
 # Laboratory #1
 In this laboratory work we had to create a basic c++ windows application with few buttons, some text and input text and play around with its parameters.
 
+This project was successfully compiled on Windows10 CodeBlocks.
+
 ## Mandatory objectives:
 * choose a Programming Style Guideline that you'll follow;
   * I did my best to follow `Google C++ Style Guide`;
