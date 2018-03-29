@@ -16,7 +16,21 @@
         "string": "cpp",
         "string_view": "cpp",
         "utility": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "type_traits": "cpp",
+        "locale": "cpp",
+        "algorithm": "cpp",
+        "__functional_03": "cpp",
+        "functional": "cpp",
+        "__locale": "cpp",
+        "__bit_reference": "cpp",
+        "__string": "cpp",
+        "chrono": "cpp",
+        "limits": "cpp",
+        "ratio": "cpp",
+        "__functional_base": "cpp",
+        "atomic": "cpp",
+        "tuple": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

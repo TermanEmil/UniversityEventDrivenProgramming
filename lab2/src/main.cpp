@@ -6,14 +6,17 @@ LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 TCHAR szClassName[ ] = _T("CodeBlocksWindowsApp");
 
 WNDCLASSEX  g_wincl;
-Mp3Player*  g_mp3_player;
+HWND        g_hwnd;
 
-int WINAPI WinMain(HINSTANCE hThisInstance,
+Mp3Player*  g_mp3_player;
+ScrollCtrl* g_scroll_ctrl;
+
+int WINAPI WinMain(
+    HINSTANCE hThisInstance,
     HINSTANCE hPrevInstance,
     LPSTR lpszArgument,
     int nCmdShow)
 {
-    HWND hwnd;
     MSG messages;
 
     g_wincl.hInstance = hThisInstance;
@@ -25,7 +28,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
     g_wincl.hIcon = LoadIcon (NULL, IDI_APPLICATION);
     g_wincl.hIconSm = LoadIcon (NULL, IDI_APPLICATION);
     g_wincl.hCursor = LoadCursor (NULL, IDC_ARROW);
-    g_wincl.lpszMenuName = NULL;
+    g_wincl.lpszMenuName = MAKEINTRESOURCE(SYSTEM_MENU_ID);
     g_wincl.cbClsExtra = 0;
     g_wincl.cbWndExtra = 0;
     g_wincl.hbrBackground = (HBRUSH)COLOR_BACKGROUND;
@@ -33,11 +36,11 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
     if (!RegisterClassEx(&g_wincl))
         return 0;
 
-    hwnd = CreateWindowEx(
+    g_hwnd = CreateWindowEx(
         0,                   /* Extended possibilites for variation */
         szClassName,         /* Classname */
-        _T("Lab1"),          /* Title Text */
-        WS_OVERLAPPEDWINDOW, /* default window */
+        _T("Lab2"),          /* Title Text */
+        WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL,
         CW_USEDEFAULT,       /* Windows decides the position */
         CW_USEDEFAULT,       /* where the window ends up on the screen */
         544,                 /* The programs width */
@@ -47,7 +50,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
         hThisInstance,       /* Program Instance handler */
         NULL                 /* No Window Creation data */
         );
-    ShowWindow (hwnd, nCmdShow);
+    ShowWindow (g_hwnd, nCmdShow);
     while (GetMessage (&messages, NULL, 0, 0))
     {
         TranslateMessage(&messages);
@@ -68,10 +71,7 @@ LRESULT CALLBACK WindowProcedure(
             OnWmCreate(hwnd, wParam, lParam);
             break;
         case WM_SIZE:
-            OnWmSize(hwnd, wParam, lParam);
-            break;
-        case WM_GETMINMAXINFO:
-            OnWmGetMinMaxInfo(lParam);
+            OnWmSize(hwnd, LOWORD(lParam), HIWORD(lParam));
             break;
         case WM_CTLCOLORSTATIC:
             return OnWmCTLColorStatic(GetDlgCtrlID((HWND)lParam), wParam);
@@ -81,7 +81,17 @@ LRESULT CALLBACK WindowProcedure(
             OnWmDrawItem(wParam, lParam);
             break;
         case WM_COMMAND:
-            OnWmCommand(LOWORD(wParam));
+            OnWmCommand(LOWORD(wParam), wParam, lParam);
+            break;
+        case WM_KEYDOWN:
+            g_mp3_player->OnWmKeyDown(wParam);
+            break;
+        case WM_HSCROLL:
+		    g_scroll_ctrl->OnWmHScroll(hwnd, message, wParam, lParam);
+            g_mp3_player->OnWmHScroll(hwnd, message, wParam, lParam);
+            break;
+        case WM_VSCROLL:
+            g_scroll_ctrl->OnWmVScroll(hwnd, message, wParam, lParam);
             break;
         case WM_DESTROY:
             OnWmDestroy();
@@ -89,6 +99,6 @@ LRESULT CALLBACK WindowProcedure(
         default:
             return DefWindowProc(hwnd, message, wParam, lParam);
     }
-
     return 0;
 }
+

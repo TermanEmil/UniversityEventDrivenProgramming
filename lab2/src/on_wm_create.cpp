@@ -5,6 +5,5 @@ void        OnWmCreate(HWND hwnd, WPARAM wParam, LPARAM lParam)
 {
     std::cout << "On Create" << std::endl;
     g_mp3_player = new Mp3Player(hwnd);
-    // DialogBox(wincl.hInstance, MAKEINTRESOURCE(IDD_DLGFIRST),
-	//           hwnd, reinterpret_cast<DLGPROC>(DlgProc));
+    g_scroll_ctrl = new ScrollCtrl();
 }

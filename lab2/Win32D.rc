@@ -1,13 +1,21 @@
 #include <windows.h>
 #include "includes/resources.h"
+#include "includes/idc.h"
 
 IDD_DLGFIRST DIALOG 260, 200, 188, 95
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Win32 Programming"
+CAPTION "A sexy dialog"
 FONT 8, "MS Shell Dlg"
 BEGIN
-    DEFPUSHBUTTON   "&OK", IDOK, 130, 10, 50, 14
-    DEFPUSHBUTTON   "&Emil", IDCANCEL, 130, 40, 50, 14
-    LTEXT "Filename", 101, 10, 10, 100, 100
+    DEFPUSHBUTTON   "&Whatever",    IDOK,       130, 10, 50, 14
+    DEFPUSHBUTTON   "&NoNo!",       IDCANCEL,   130, 40, 50, 14
+    LTEXT "Are you sure you want to remove this song?", 100, 10, 10, 100, 100
 
 END
+
+SYSTEM_MENU_ID MENU
+{
+     MENUITEM "Exit", SYS_MENU_EXIT_BTN_IDC
+     MENUITEM "Add", SYS_MENU_ADD_BTN_IDC
+     MENUITEM "Restart", SYS_MENU_RESTART_BTN_IDC
+}

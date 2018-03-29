@@ -1,14 +1,10 @@
 #include "lab1.hpp"
 #include <iostream>
 
-void        OnWmSize(HWND hwnd, WPARAM wParam, LPARAM lParam)
+void        OnWmSize(HWND hwnd, int cx, int cy)
 {
-    int cxCoord, cyCoord;
-
-    cxCoord = LOWORD(lParam);
-    cyCoord = HIWORD(lParam);
-
-    g_mp3_player->OnWmSize(cxCoord, cyCoord);
+    g_scroll_ctrl->OnWmSizeInternal(cx, cy);
+    g_mp3_player->OnWmSize(cx, cy);
 
     RedrawWindow(hwnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASE);
 }

@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="lib" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -30,14 +31,30 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-D_X86_" />
+			<Add option="-D_M_IX86" />
+			<Add directory="src" />
+			<Add directory="includes" />
 		</Compiler>
 		<Linker>
 			<Add library="gdi32" />
 			<Add library="user32" />
 			<Add library="kernel32" />
 			<Add library="comctl32" />
+			<Add library="C:/Program Files (x86)/CodeBlocks/MinGW/lib/libcomdlg32.a" />
+			<Add library="C:/Program Files (x86)/Windows Kits/10/Lib/10.0.16299.0/um/x86/WinMM.Lib" />
 		</Linker>
+		<Unit filename="Win32D.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="includes/Mp3Player.hpp" />
+		<Unit filename="includes/Music.hpp" />
+		<Unit filename="includes/ScrollCtrl.hpp" />
 		<Unit filename="includes/lab1.hpp" />
+		<Unit filename="includes/resources.h" />
+		<Unit filename="src/Mp3Player.cpp" />
+		<Unit filename="src/Music.cpp" />
+		<Unit filename="src/ScrollCtrl.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/on_wm_command.cpp" />
 		<Unit filename="src/on_wm_create.cpp" />
@@ -46,7 +63,6 @@
 		<Unit filename="src/on_wm_destroy.cpp" />
 		<Unit filename="src/on_wm_draw_item.cpp" />
 		<Unit filename="src/on_wm_get_min_max_info.cpp" />
-		<Unit filename="src/on_wm_r_btn_down.cpp" />
 		<Unit filename="src/on_wm_size.cpp" />
 		<Extensions>
 			<code_completion />
