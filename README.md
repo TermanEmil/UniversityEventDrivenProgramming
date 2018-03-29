@@ -6,3 +6,4 @@ Each lab will contain a `src` (for .cpp files) and an `includes` (for .hpp files
 
 ## Labs
 * [lab#1](./lab1)
+* [lab#2](./lab2)
