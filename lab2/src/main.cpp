@@ -41,7 +41,7 @@ int WINAPI WinMain(
     g_hwnd = CreateWindowEx(
         0,                   /* Extended possibilites for variation */
         szClassName,         /* Classname */
-        _T("Lab2"),          /* Title Text */
+        _T("My sexy wav player"),
         WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL,
         CW_USEDEFAULT,       /* Windows decides the position */
         CW_USEDEFAULT,       /* where the window ends up on the screen */
