@@ -1,5 +1,4 @@
 obj
-bin
 
 # Compiled Object files
 *.slo
@@ -22,7 +21,6 @@ bin
 *.a
 
 # Executables
-*.exe
 *.out
 *.app
 

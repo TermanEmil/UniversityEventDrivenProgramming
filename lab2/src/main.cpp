@@ -1,6 +1,6 @@
 #include <iostream>
-
 #include "lab1.hpp"
+#include "resources.h"
 
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 TCHAR szClassName[ ] = _T("CodeBlocksWindowsApp");
@@ -25,13 +25,15 @@ int WINAPI WinMain(
     g_wincl.style = CS_DBLCLKS;
     g_wincl.cbSize = sizeof (WNDCLASSEX);
 
-    g_wincl.hIcon = LoadIcon (NULL, IDI_APPLICATION);
-    g_wincl.hIconSm = LoadIcon (NULL, IDI_APPLICATION);
-    g_wincl.hCursor = LoadCursor (NULL, IDC_ARROW);
+    g_wincl.hIcon = LoadIcon(g_wincl.hInstance, MAKEINTRESOURCE(IDR_ICO_MAIN));
+    g_wincl.hIconSm = LoadIcon(g_wincl.hInstance, MAKEINTRESOURCE(IDR_ICO_MAIN));
+    g_wincl.hCursor = LoadCursor(g_wincl.hInstance, MAKEINTRESOURCE(IDR_CUSTOM_CURSOR));
     g_wincl.lpszMenuName = MAKEINTRESOURCE(SYSTEM_MENU_ID);
     g_wincl.cbClsExtra = 0;
     g_wincl.cbWndExtra = 0;
     g_wincl.hbrBackground = (HBRUSH)COLOR_BACKGROUND;
+
+    SetCursor(g_wincl.hCursor);
 
     if (!RegisterClassEx(&g_wincl))
         return 0;
@@ -93,6 +95,8 @@ LRESULT CALLBACK WindowProcedure(
         case WM_VSCROLL:
             g_scroll_ctrl->OnWmVScroll(hwnd, message, wParam, lParam);
             break;
+        case WM_CTLCOLORLISTBOX:
+            return g_mp3_player->OnWmCtlColorListBox(wParam, lParam);
         case WM_DESTROY:
             OnWmDestroy();
             break;

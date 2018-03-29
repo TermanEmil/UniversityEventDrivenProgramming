@@ -20,6 +20,7 @@ public:
     bool OnWmCommand(WORD cmd_word, WPARAM wParam, LPARAM lParam);
     bool OnWmKeyDown(WPARAM wParam);
     void OnWmHScroll(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+    LRESULT CALLBACK OnWmCtlColorListBox(WPARAM wParam, LPARAM lParam);
 
     void AddMusic(const std::string path);
     void RemoveMusic(Music target);
@@ -30,6 +31,10 @@ public:
     void SetVolume(float volume);
 
 private:
+    COLORREF listbox_bg_ = RGB(255, 192, 203);
+    COLORREF listbox_txt_ = RGB(255, 105, 180);
+    float min_part_ = 10;
+    
     float dialog_init_width_ = 200;
     float btn_init_width_ = 50;
     float btn_init_height_ = 20;

@@ -50,8 +50,10 @@ void                OnWmDestroy();
 ** Utils
 */
 
+COLORREF            RGBMultiply(COLORREF color, float val);
+
 template<class T>
-constexpr const T& clamp(const T& v, const T& lo, const T& hi)
+constexpr const T&  clamp(const T& v, const T& lo, const T& hi)
 {
     if (v < lo)
         return lo;

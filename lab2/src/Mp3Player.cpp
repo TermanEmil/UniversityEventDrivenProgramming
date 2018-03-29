@@ -410,6 +410,22 @@ void Mp3Player::OnWmHScroll(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
     SetScrollPos(scb_handle, SB_CTL, *target_offset, TRUE);
     SetVolume(volume_scb_offset_ / 100);
+
+    if (idc == MP3_VOLUME_BAR_IDC)
+        RedrawWindow(music_dialog_box_, NULL, NULL, RDW_INVALIDATE | RDW_ERASE);
+}
+
+LRESULT CALLBACK Mp3Player::OnWmCtlColorListBox(WPARAM wParam, LPARAM lParam)
+{
+    auto hdc = (HDC)wParam;
+    auto color_mult = volume_scb_offset_ / 100;
+
+    color_mult = (1 - color_mult) * 0.5 + color_mult * 1;
+
+    SetTextColor(hdc, RGBMultiply(listbox_txt_, color_mult));
+    SetBkColor(hdc, RGBMultiply(listbox_bg_, color_mult));
+
+    return (LRESULT)CreateSolidBrush(RGBMultiply(listbox_bg_, color_mult));
 }
 
 /*
