@@ -1,5 +1,7 @@
 # **Lab #3**
 
+This application was successfully compiled with Visual Studio C#.
+
 In this laboratory work we had to implement a mini Paint application, which must support lines, ellipses, rectangles, bezier and pie drawings.
 
 ## Objectives
