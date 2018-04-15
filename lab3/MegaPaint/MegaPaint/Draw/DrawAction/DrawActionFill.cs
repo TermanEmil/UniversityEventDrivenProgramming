@@ -61,27 +61,49 @@ namespace MegaPaint.Draw.DrawAction
 
         private void Draw(PaintEventArgs e, PaintEventData data)
         {
+            return;
             var graphics = data.pictureBox.CreateGraphics();
-            //var bitmap = new Bitmap(data.pictureBox.Image);
-            //var areaColor = bitmap.GetPixel(data.points[0].X, data.points[0].Y);
-
-            //ColorBitmap(bitmap, areaColor, data.color, data.points[0].X, data.points[0].Y);
-            //data.pictureBox.Image = bitmap;
+            var bitmap = new Bitmap(data.pictureBox.Width, data.pictureBox.Height, graphics);
+            var areaColor = bitmap.GetPixel(data.points[0].X, data.points[0].Y);
+            
+            ColorBitmap(bitmap, areaColor, data.color, data.points[0].X, data.points[0].Y);
+            data.pictureBox.Image = bitmap;
         }
 
         private void ColorBitmap(Bitmap target, Color areaColor, Color targetColor, int x, int y)
         {
-            if (target.GetPixel(x, y).Equals(areaColor))
-                target.SetPixel(x, y, targetColor);
+            if (areaColor.Equals(targetColor))
+                return;
+            
+            var points = new List<Point>();
+            points.Add(new Point(x, y));
 
-            if (x > 0)
-                ColorBitmap(target, areaColor, targetColor, x - 1, y);
-            if (x < target.Width - 1)
-                ColorBitmap(target, areaColor, targetColor, x + 1, y);
-            if (y > 0)
-                ColorBitmap(target, areaColor, targetColor, x, y - 1);
-            if (y < target.Height - 1)
-                ColorBitmap(target, areaColor, targetColor, x, y + 1);
+            while (points.Any())
+            {
+                var point = points.First();
+                points.Remove(point);
+
+                var pixel = target.GetPixel(point.X, point.Y);
+                //Console.WriteLine(pixel + " / " + areaColor + pixel.Equals(areaColor));
+                if (!pixel.Equals(areaColor))
+                    continue;
+               
+                target.SetPixel(point.X, point.Y, targetColor);
+                
+                if (point.X > 0)
+                    points.Add(new Point(point.X - 1, point.Y));
+                /*if (point.Y > 0)
+                    points.Add(new Point(point.X, point.Y - 1));
+                if (point.X <target.Width - 1)
+                    points.Add(new Point(point.X + 1, point.Y));
+                if (point.Y < target.Height - 1)
+                    points.Add(new Point(point.X, point.Y + 1));
+                */
+                //Console.WriteLine(points.Count);
+            }
+
+
+            //Console.WriteLine(points.Count);
         }
 
         public override string ToString()
