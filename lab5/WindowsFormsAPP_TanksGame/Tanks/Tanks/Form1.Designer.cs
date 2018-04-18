@@ -37,7 +37,7 @@
             // mainDrawContext
             // 
             this.mainDrawContext.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.mainDrawContext.Location = new System.Drawing.Point(175, 37);
+            this.mainDrawContext.Location = new System.Drawing.Point(172, 12);
             this.mainDrawContext.Name = "mainDrawContext";
             this.mainDrawContext.Size = new System.Drawing.Size(460, 374);
             this.mainDrawContext.TabIndex = 0;
@@ -55,6 +55,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.mainDrawContext);
+            this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.mainDrawContext)).EndInit();

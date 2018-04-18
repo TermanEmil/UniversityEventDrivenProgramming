@@ -22,12 +22,15 @@ namespace Tanks
         {
             InitializeComponent();
 
+            DoubleBuffered = true;
+          
             gmCtrl = new GameController(mainDrawContext);
             var tank = new Tank();
             var tankMesh = new Mesh(
                 tank,
                 rootPath + "imgs\\TankPlayer.png",
                 mainDrawContext.CreateGraphics());
+
             var charCtrl = new CharacterController(
                 tank,
                 this)
@@ -35,7 +38,6 @@ namespace Tanks
                 Speed = new PointF(0.01f, 0.01f)
             };
             GameObject.Instantiate(tank);
-            
             timer1.Start();
         }
 

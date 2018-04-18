@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,15 @@ namespace Tanks.BuisnessLogic
         private Timer _timer;
         public List<GameObject> gameObjects = new List<GameObject>();
 
-        public bool repaintRequired = false;
+        public bool repaintRequired = true;
         private readonly Control _controlToRepaint;
+        private readonly Graphics _controlToRepaintGraphics;
 
         public GameController(Control controlToRepaint)
         {
             instance = this;
             _controlToRepaint = controlToRepaint;
+            _controlToRepaintGraphics = _controlToRepaint.CreateGraphics();
             _timer = new Timer();
         }
 
@@ -28,10 +31,12 @@ namespace Tanks.BuisnessLogic
         {
             _timer.Tick();
             gameObjects.ForEach(x => x.Update());
+
             if (repaintRequired)
             {
                 repaintRequired = false;
-                _controlToRepaint.Refresh();
+                _controlToRepaintGraphics.Clear(Color.White);
+                Paint();
             }
         }
 
