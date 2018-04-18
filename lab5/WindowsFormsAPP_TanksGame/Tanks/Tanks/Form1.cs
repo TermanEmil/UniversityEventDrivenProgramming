@@ -18,18 +18,24 @@ namespace Tanks
 
         private GameController gmCtrl;
 
+        private Bitmap backBuffer;
+        private Graphics backBufferGraphics;
+
         public Form1()
         {
             InitializeComponent();
 
             DoubleBuffered = true;
+
+            backBuffer = new Bitmap(mainDrawContext.Width, mainDrawContext.Height, mainDrawContext.CreateGraphics());
+            backBufferGraphics = Graphics.FromImage(backBuffer);
           
-            gmCtrl = new GameController(mainDrawContext);
+            gmCtrl = new GameController(backBufferGraphics);
             var tank = new Tank();
             var tankMesh = new Mesh(
                 tank,
                 rootPath + "imgs\\TankPlayer.png",
-                mainDrawContext.CreateGraphics());
+                backBufferGraphics);
 
             var charCtrl = new CharacterController(
                 tank,
@@ -44,12 +50,15 @@ namespace Tanks
         private void timer1_Tick(object sender, EventArgs e)
         {
             gmCtrl.Update();
+            backBufferGraphics.Clear(Color.White);
             gmCtrl.Paint();
+            mainDrawContext.CreateGraphics().DrawImage(backBuffer, new Point(0, 0));
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            gmCtrl.Paint();
+            //gmCtrl.Paint(backBufferGraphics);
+            //e.Graphics.DrawImage(backBuffer, new Point(0, 0));
         }
     }
 }

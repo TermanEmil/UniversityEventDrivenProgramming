@@ -17,13 +17,12 @@ namespace Tanks.BuisnessLogic
 
         public bool repaintRequired = true;
         private readonly Control _controlToRepaint;
-        private readonly Graphics _controlToRepaintGraphics;
+        private readonly Graphics _drawContext;
 
-        public GameController(Control controlToRepaint)
+        public GameController(Graphics g)
         {
             instance = this;
-            _controlToRepaint = controlToRepaint;
-            _controlToRepaintGraphics = _controlToRepaint.CreateGraphics();
+            _drawContext = g;
             _timer = new Timer();
         }
 
@@ -35,7 +34,8 @@ namespace Tanks.BuisnessLogic
             if (repaintRequired)
             {
                 repaintRequired = false;
-                _controlToRepaintGraphics.Clear(Color.White);
+                _drawContext.Clear(Color.White);
+                
                 Paint();
             }
         }
