@@ -12,17 +12,20 @@ namespace Tanks.BuisnessLogic
     {
         public static GameController instance;
 
+        public static readonly string rootPath = "..\\..\\";
+
+        public Graphics mainGraphics;
+        public Control mainKeyboardCtrl;
+
         private Timer _timer;
         public List<GameObject> gameObjects = new List<GameObject>();
 
         public bool repaintRequired = true;
         private readonly Control _controlToRepaint;
-        private readonly Graphics _drawContext;
 
-        public GameController(Graphics g)
+        public GameController()
         {
             instance = this;
-            _drawContext = g;
             _timer = new Timer();
         }
 
@@ -30,14 +33,6 @@ namespace Tanks.BuisnessLogic
         {
             _timer.Tick();
             gameObjects.ForEach(x => x.Update());
-
-            if (repaintRequired)
-            {
-                repaintRequired = false;
-                _drawContext.Clear(Color.White);
-                
-                Paint();
-            }
         }
 
         public void Paint()

@@ -11,9 +11,10 @@ namespace Tanks.BuisnessLogic
         public Transform transform;
         public List<Property> properties = new List<Property>();
 
-        public static void Instantiate(GameObject gameObject)
+        public static GameObject Instantiate(GameObject gameObject)
         {
             GameController.instance.gameObjects.Add(gameObject);
+            return gameObject;
         }
 
         public static void Destroy(GameObject gameObject)
@@ -40,6 +41,14 @@ namespace Tanks.BuisnessLogic
         public void Paint()
         {
             properties.ForEach(x => x.Paint());
+        }
+
+        public T GetComponent<T>() where T : Property
+        {
+            foreach (var property in properties)
+                if (property.GetType() == typeof(T))
+                    return property as T;
+            return null;
         }
     }
 }
