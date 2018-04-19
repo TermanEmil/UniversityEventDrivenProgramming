@@ -21,7 +21,18 @@ namespace Tanks.BuisnessLogic
         {
             GameController.instance.gameObjects.Remove(gameObject);
         }
-        
+
+        private Collider _myCollider = null;
+        public Collider MyCollider
+        {
+            get
+            {
+                if (_myCollider == null)
+                    _myCollider = GetComponent<Collider>();
+                return _myCollider;
+            }
+        }
+
         public GameObject()
         {
             transform = new Transform(this);
@@ -31,9 +42,12 @@ namespace Tanks.BuisnessLogic
         public void AddProperty(Property newProperty)
         {
             properties.Add(newProperty);
+
+            if (newProperty.GetType().IsAssignableFrom(typeof(Collider)))
+                ColliderCtrl.Instance.colliders.Add(newProperty as Collider);
         }
 
-        public void Update()
+        public virtual void Update()
         {
             properties.ForEach(x => x.Update());
         }

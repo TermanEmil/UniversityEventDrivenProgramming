@@ -40,6 +40,29 @@ namespace Tanks
                 new PointF(0.01f, 0.01f),
                 false));
 
+            var tank2 = GameObject.Instantiate(new Tank(
+                GameController.rootPath + "imgs\\TankEnemy.png",
+                new PointF(0.01f, 0.01f),
+                true));
+            tank.transform.position = new PointF(120, 50);
+            tank2.transform.position = new PointF(100, 100);
+
+            GameObject.Instantiate(new Border(
+                new PointF(50, 10),
+                new PointF(70, 220)));
+            /*
+            new Border(
+                new PointF(0, 0),
+                new PointF(-10, mainDrawContext.Height));
+
+            new Border(
+                new PointF(mainDrawContext.Width, 0),
+                new PointF(mainDrawContext.Width, mainDrawContext.Height + 10));
+
+            new Border(
+                new PointF(0, mainDrawContext.Height),
+                new PointF(mainDrawContext.Width + 1, mainDrawContext.Height));
+               */
             timer1.Start();
         }
 

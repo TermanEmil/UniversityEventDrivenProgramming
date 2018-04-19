@@ -10,7 +10,8 @@ namespace Tanks.BuisnessLogic
 {
     public class CharacterController : Property
     {
-        private bool _lastMovWasVert = true;
+        public bool lastMovWasVert = true;
+        public Point lastMovement = new Point();
 
         public Point MovementAxix
         {
@@ -19,26 +20,24 @@ namespace Tanks.BuisnessLogic
                 int x = 0;
                 int y = 0;
                 
-
                 x += pressedControlls['A'] ? -1 : 0;
                 x += pressedControlls['D'] ? 1 : 0;
 
                 y += pressedControlls['W'] ? -1 : 0;
                 y += pressedControlls['S'] ? 1 : 0;
-
-
+                
                 if (y != 0 && x != 0)
                 {
-                    if (_lastMovWasVert)
+                    if (lastMovWasVert)
                         x = 0;
                     else
                         y = 0;
                 }
 
                 if (x != 0)
-                    _lastMovWasVert = false;
+                    lastMovWasVert = false;
                 else if (y != 0)
-                    _lastMovWasVert = true;
+                    lastMovWasVert = true;
 
                 return new Point(x, y);
             }
@@ -71,20 +70,27 @@ namespace Tanks.BuisnessLogic
         {
             base.Update();
 
-            var mvAxis = MovementAxix;
-            var delta = new PointF(
-                mvAxis.X * Speed.X * (float)Timer.DeltaTime,
-                mvAxis.Y * Speed.Y * (float)Timer.DeltaTime);
+            var movement = MovementAxix;
+            if (movement.X != 0 || movement.Y != 0)
+                Move(movement);
+        }
 
-            if (mvAxis.X > 0)
+        public void Move(Point movement)
+        {
+            var delta = new PointF(
+                movement.X * Speed.X * (float)Timer.DeltaTime,
+                movement.Y * Speed.Y * (float)Timer.DeltaTime);
+
+            if (movement.X > 0)
                 MyTransform.rotation = 90;
-            else if (mvAxis.X < 0)
+            else if (movement.X < 0)
                 MyTransform.rotation = -90;
-            else if (mvAxis.Y > 0)
+            else if (movement.Y > 0)
                 MyTransform.rotation = 180;
-            else if (mvAxis.Y < 0)
+            else if (movement.Y < 0)
                 MyTransform.rotation = 0;
 
+            lastMovement = movement;
             MyTransform.Translate(delta);
         }
 

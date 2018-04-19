@@ -46,6 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuisnessLogic\CharacterController.cs" />
+    <Compile Include="BuisnessLogic\Collider.cs" />
+    <Compile Include="BuisnessLogic\ColliderCtrl.cs" />
+    <Compile Include="BuisnessLogic\Concrete\Border.cs" />
+    <Compile Include="BuisnessLogic\Concrete\Projectile.cs" />
     <Compile Include="BuisnessLogic\Concrete\Tank.cs" />
     <Compile Include="BuisnessLogic\GameController.cs" />
     <Compile Include="BuisnessLogic\GameObject.cs" />

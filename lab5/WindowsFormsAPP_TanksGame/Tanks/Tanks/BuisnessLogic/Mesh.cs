@@ -10,7 +10,10 @@ namespace Tanks.BuisnessLogic
 {
     public class Mesh : Property
     {
+        public delegate void Draw(Graphics graphics);
+
         public Image Image { get; set; }
+        public Draw draw;
         public Graphics DrawContext { get; set; }
         
         public Mesh(
@@ -22,15 +25,26 @@ namespace Tanks.BuisnessLogic
             DrawContext = drawContext;
         }
 
+        public Mesh(GameObject gmObj, Graphics drawContext) : base(gmObj)
+        {
+            DrawContext = drawContext;
+        }
+
         public override void Paint()
         {
             base.Paint();
-            DrawContext.DrawImage(
-                RotateImage(Image, MyTransform.rotation),
-                MyTransform.position.X,
-                MyTransform.position.Y,
-                MyTransform.scale.X * Image.Width,
-                MyTransform.scale.Y * Image.Height);
+            if (Image != null)
+            {
+                DrawContext.DrawImage(
+                    RotateImage(Image, MyTransform.rotation),
+                    MyTransform.position.X,
+                    MyTransform.position.Y,
+                    MyTransform.scale.X * Image.Width,
+                    MyTransform.scale.Y * Image.Height);
+            }
+
+            if (draw != null)
+                draw.Invoke(DrawContext);
         }
 
         public static Image RotateImage(Image img, float rotationAngle)
