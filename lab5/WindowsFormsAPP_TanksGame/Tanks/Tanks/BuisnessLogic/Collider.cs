@@ -12,6 +12,7 @@ namespace Tanks.BuisnessLogic
         
         public Collider(GameObject gmObj) : base(gmObj)
         {
+            ColliderCtrl.Instance.colliders.Add(this);
         }
 
         public override void Update()

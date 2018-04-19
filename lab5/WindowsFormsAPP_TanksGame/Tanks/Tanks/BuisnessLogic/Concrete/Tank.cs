@@ -10,19 +10,23 @@ namespace Tanks.BuisnessLogic.Concrete
 {
     public class Tank : GameObject
     {
-        public Tank(string spritePath, PointF speed, bool isAI = false)
+        public ShootCtrl ShootCtrl { get; }
+        public CharacterController CharCtrl { get; }
+        
+
+        public Tank(string spritePath, bool isAI = false)
         {
             var tankMesh = new Mesh(
                 this,
                 spritePath,
                 GameController.instance.mainGraphics);
             
-            var keyboardCtrl = isAI ? null : GameController.instance.mainKeyboardCtrl;
-            var charCtrl = new CharacterController(this, keyboardCtrl)
+            CharCtrl = new CharacterController(this, isKeyboardControlled: !isAI)
             {
-                Speed = speed
+                Speed = isAI ? GameSettings.enemySpeed : GameSettings.playerSpeed
             };
 
+            // Collider
             var collider = new Collider(this)
             {
                 rectangle = new Rectangle(
@@ -30,6 +34,19 @@ namespace Tanks.BuisnessLogic.Concrete
                     new Size(tankMesh.Image.Width, tankMesh.Image.Height))
             };
             collider.OnColliding += OnColliding;
+
+            // Shooter
+            var projectileSprite = GameSettings.GetPath(
+                isAI ? GameSettings.enemyProjectile : GameSettings.playerProjectile);
+            var projSpeed = isAI ? GameSettings.enemyProjectileSpeed : GameSettings.playerProjectileSpeed;
+            ShootCtrl = new ShootCtrl(this, isKeyboardControlled: !isAI)
+            {
+                ProjectileSprite = projectileSprite,
+                ProjectileSpeed = projSpeed,
+                dmg = isAI ? GameSettings.enemyDmg : GameSettings.playerDmg,
+                coolDown = isAI ? GameSettings.enemyShootCD : GameSettings.playerShootCD
+
+            };
         }
 
         private void OnColliding(object sender, Collider other)

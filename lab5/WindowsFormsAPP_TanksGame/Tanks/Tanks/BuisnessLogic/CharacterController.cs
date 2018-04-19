@@ -20,11 +20,11 @@ namespace Tanks.BuisnessLogic
                 int x = 0;
                 int y = 0;
                 
-                x += pressedControlls['A'] ? -1 : 0;
-                x += pressedControlls['D'] ? 1 : 0;
+                x += Input.PressedKeys.Get('A') ? -1 : 0;
+                x += Input.PressedKeys.Get('D') ? 1 : 0;
 
-                y += pressedControlls['W'] ? -1 : 0;
-                y += pressedControlls['S'] ? 1 : 0;
+                y += Input.PressedKeys.Get('W') ? -1 : 0;
+                y += Input.PressedKeys.Get('S') ? 1 : 0;
                 
                 if (y != 0 && x != 0)
                 {
@@ -43,32 +43,25 @@ namespace Tanks.BuisnessLogic
             }
         }
 
+        public bool IsKeyboardControlled { get; set; }
         public PointF Speed { get; set; }
         
-        public Dictionary<int, bool> pressedControlls = new Dictionary<int, bool>();
         private Mesh _myMesh;
 
         public CharacterController(
             GameObject gameObject,
-            Control control = null) : base(gameObject)
+            bool isKeyboardControlled = false) : base(gameObject)
         {
-            if (control != null)
-            {
-                control.KeyUp += _OnKeyUp;
-                control.KeyPress += _OnKeyPress;
-            }
-
-            pressedControlls.Add('A', false);
-            pressedControlls.Add('W', false);
-            pressedControlls.Add('D', false);
-            pressedControlls.Add('S', false);
-
+            IsKeyboardControlled = isKeyboardControlled;
             _myMesh = gameObject.GetComponent<Mesh>();
         }
 
         public override void Update()
         {
             base.Update();
+
+            if (!IsKeyboardControlled)
+                return;
 
             var movement = MovementAxix;
             if (movement.X != 0 || movement.Y != 0)
@@ -92,16 +85,6 @@ namespace Tanks.BuisnessLogic
 
             lastMovement = movement;
             MyTransform.Translate(delta);
-        }
-
-        private void _OnKeyPress(object sender, KeyPressEventArgs e)
-        {
-            pressedControlls[e.KeyChar.ToString().ToUpper()[0]] = true;
-        }
-        
-        private void _OnKeyUp(object sender, KeyEventArgs e)
-        {
-            pressedControlls[e.KeyValue] = false;
         }
     }
 }

@@ -49,14 +49,19 @@
     <Compile Include="BuisnessLogic\Collider.cs" />
     <Compile Include="BuisnessLogic\ColliderCtrl.cs" />
     <Compile Include="BuisnessLogic\Concrete\Border.cs" />
-    <Compile Include="BuisnessLogic\Concrete\Projectile.cs" />
+    <Compile Include="BuisnessLogic\Concrete\GameSettings.cs" />
+    <Compile Include="BuisnessLogic\Concrete\Map.cs" />
+    <Compile Include="BuisnessLogic\Input.cs" />
+    <Compile Include="BuisnessLogic\Projectile.cs" />
     <Compile Include="BuisnessLogic\Concrete\Tank.cs" />
     <Compile Include="BuisnessLogic\GameController.cs" />
     <Compile Include="BuisnessLogic\GameObject.cs" />
     <Compile Include="BuisnessLogic\Mesh.cs" />
     <Compile Include="BuisnessLogic\Property.cs" />
+    <Compile Include="BuisnessLogic\ShootCtrl.cs" />
     <Compile Include="BuisnessLogic\Timer.cs" />
     <Compile Include="BuisnessLogic\Transform.cs" />
+    <Compile Include="BuisnessLogic\Extensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

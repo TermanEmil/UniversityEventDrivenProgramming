@@ -11,28 +11,26 @@ namespace Tanks.BuisnessLogic
     class GameController
     {
         public static GameController instance;
-
-        public static readonly string rootPath = "..\\..\\";
-
+        
         public Graphics mainGraphics;
-        public Control mainKeyboardCtrl;
-
+        
         private Timer _timer;
         public List<GameObject> gameObjects = new List<GameObject>();
 
         public bool repaintRequired = true;
-        private readonly Control _controlToRepaint;
 
-        public GameController()
+        public GameController(Control keyboardCtrl)
         {
             instance = this;
             _timer = new Timer();
+
+            new Input(keyboardCtrl);
         }
 
         public void Update()
         {
             _timer.Tick();
-            gameObjects.ForEach(x => x.Update());
+            gameObjects.ToList().ForEach(x => x.Update());
         }
 
         public void Paint()

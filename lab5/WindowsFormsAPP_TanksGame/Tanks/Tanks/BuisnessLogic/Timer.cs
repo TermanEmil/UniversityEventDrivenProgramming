@@ -30,7 +30,7 @@ namespace Tanks.BuisnessLogic
         public void Tick()
         {
             var newTicks = DateTime.Now.Ticks;
-            _deltaTime = (newTicks - _lastTicks) / 1000;
+            _deltaTime = (newTicks - _lastTicks) / 1000000f;
             _lastTicks = newTicks;
         }
     }

@@ -31,7 +31,7 @@ namespace Tanks.BuisnessLogic.Concrete
                 draw = (graphics) =>
                 {
                     graphics.DrawRectangle(
-                        new Pen(Color.Black) { Width = -10 },
+                        new Pen(Color.Black) { Width = 10 },
                         _rect);
                 }
             };

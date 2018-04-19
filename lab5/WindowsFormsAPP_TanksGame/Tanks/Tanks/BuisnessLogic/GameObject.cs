@@ -11,7 +11,7 @@ namespace Tanks.BuisnessLogic
         public Transform transform;
         public List<Property> properties = new List<Property>();
 
-        public static GameObject Instantiate(GameObject gameObject)
+        public static T Instantiate<T>(T gameObject) where T : GameObject
         {
             GameController.instance.gameObjects.Add(gameObject);
             return gameObject;
@@ -42,9 +42,6 @@ namespace Tanks.BuisnessLogic
         public void AddProperty(Property newProperty)
         {
             properties.Add(newProperty);
-
-            if (newProperty.GetType().IsAssignableFrom(typeof(Collider)))
-                ColliderCtrl.Instance.colliders.Add(newProperty as Collider);
         }
 
         public virtual void Update()
