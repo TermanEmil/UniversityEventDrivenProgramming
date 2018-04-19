@@ -56,12 +56,12 @@ namespace Tanks.BuisnessLogic
                 ProjectileSprite,
                 velocity,
                 0);
-
+            
             newProjectile.transform.position = ShootPosition(direction);
+            GameObject.Instantiate(newProjectile);
+
 
             _lastTimeShot = DateTime.Now.Ticks;
-            GameObject.Instantiate(newProjectile);
-            Console.WriteLine("Shot!");
             return newProjectile;
         }
 

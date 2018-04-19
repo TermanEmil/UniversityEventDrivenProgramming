@@ -18,6 +18,7 @@ namespace Tanks
 
         private Bitmap backBuffer;
         private Graphics backBufferGraphics;
+        private Graphics mainDrawContextGraphics;
 
         public Form1()
         {
@@ -26,10 +27,11 @@ namespace Tanks
             gmCtrl = new GameController(this);
             DoubleBuffered = true;
 
+            mainDrawContextGraphics = mainDrawContext.CreateGraphics();
             backBuffer = new Bitmap(
                 mainDrawContext.Width,
                 mainDrawContext.Height,
-                mainDrawContext.CreateGraphics());
+                mainDrawContextGraphics);
             backBufferGraphics = Graphics.FromImage(backBuffer);
             
             gmCtrl.mainGraphics = backBufferGraphics;
@@ -64,7 +66,7 @@ namespace Tanks
         {
             backBufferGraphics.Clear(Color.White);
             gmCtrl.Paint();
-            mainDrawContext.CreateGraphics().DrawImage(backBuffer, new Point(0, 0));
+            mainDrawContextGraphics.DrawImage(backBuffer, new Point(0, 0));
         }
     }
 }

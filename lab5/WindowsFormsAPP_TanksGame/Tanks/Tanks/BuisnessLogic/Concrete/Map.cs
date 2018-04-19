@@ -33,11 +33,11 @@ namespace Tanks.BuisnessLogic.Concrete
 
             GameObject.Instantiate(new Border(
                 new PointF(width - 1, 0),
-                new PointF(width, height + 100)));
+                new PointF(width + 100, height)));
 
             GameObject.Instantiate(new Border(
                 new PointF(0, height - 1),
-                new PointF(width + 100, height)));
+                new PointF(width, height + 100)));
         }
     }
 }
