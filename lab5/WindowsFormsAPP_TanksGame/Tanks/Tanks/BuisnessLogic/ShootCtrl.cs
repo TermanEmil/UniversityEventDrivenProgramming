@@ -18,6 +18,8 @@ namespace Tanks.BuisnessLogic
         private long _lastTimeShot = -10000;
         private bool _isKeyboardControlled;
 
+        public EventHandler<Collider> onProjectileCollide;
+
         private bool CanShoot
         {
             get
@@ -39,11 +41,13 @@ namespace Tanks.BuisnessLogic
 
             if (_isKeyboardControlled && Input.PressedKeys.Get(' '))
                 Shoot(false);
+            if (!_isKeyboardControlled)
+                Shoot(false);
         }
 
         public Projectile Shoot(bool forced = true)
         {
-            if (!CanShoot)
+            if (!forced && !CanShoot)
                 return null;
 
             var direction = new PointF(
@@ -55,11 +59,12 @@ namespace Tanks.BuisnessLogic
             var newProjectile = new Projectile(
                 ProjectileSprite,
                 velocity,
-                0);
-            
+                dmg);
+
+            newProjectile.GetComponent<Collider>().OnColliding += onProjectileCollide;
+
             newProjectile.transform.position = ShootPosition(direction);
             GameObject.Instantiate(newProjectile);
-
 
             _lastTimeShot = DateTime.Now.Ticks;
             return newProjectile;

@@ -19,6 +19,10 @@ namespace Tanks.BuisnessLogic
 
         public static void Destroy(GameObject gameObject)
         {
+            var collider = gameObject.GetComponent<Collider>();
+            if (collider != null)
+                ColliderCtrl.Instance.colliders.Remove(collider);
+
             GameController.instance.gameObjects.Remove(gameObject);
         }
 

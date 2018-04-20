@@ -10,20 +10,29 @@ namespace Tanks.BuisnessLogic.Concrete
 {
     public class Tank : GameObject
     {
-        public ShootCtrl ShootCtrl { get; }
-        public CharacterController CharCtrl { get; }
+        public ShootCtrl ShootCtrl { get; private set; }
+        public CharacterController CharCtrl { get; private set; }
+        public bool IsAI { get; set; }
         
+        public Tank(bool isAI = false)
+        {
+            IsAI = isAI;
+            if (IsAI)
+                InitTank(new EnemyTankSettings());
+            else
+                InitTank(new PlayerTankSettings());
+        }
 
-        public Tank(string spritePath, bool isAI = false)
+        private void InitTank(ITankSettings settings)
         {
             var tankMesh = new Mesh(
                 this,
-                spritePath,
+                GameSettings.rootPath + settings.Sprite,
                 GameController.instance.mainGraphics);
-            
-            CharCtrl = new CharacterController(this, isKeyboardControlled: !isAI)
+
+            CharCtrl = new CharacterController(this, isKeyboardControlled: !IsAI)
             {
-                Speed = isAI ? GameSettings.enemySpeed : GameSettings.playerSpeed
+                Speed = settings.MovementSpeed
             };
 
             // Collider
@@ -36,19 +45,31 @@ namespace Tanks.BuisnessLogic.Concrete
             collider.OnColliding += OnColliding;
 
             // Shooter
-            var projectileSprite = GameSettings.GetPath(
-                isAI ? GameSettings.enemyProjectile : GameSettings.playerProjectile);
-            var projSpeed = isAI ? GameSettings.enemyProjectileSpeed : GameSettings.playerProjectileSpeed;
-            ShootCtrl = new ShootCtrl(this, isKeyboardControlled: !isAI)
+            ShootCtrl = new ShootCtrl(this, isKeyboardControlled: !IsAI)
             {
-                ProjectileSprite = projectileSprite,
-                ProjectileSpeed = projSpeed,
-                dmg = isAI ? GameSettings.enemyDmg : GameSettings.playerDmg,
-                coolDown = isAI ? GameSettings.enemyShootCD : GameSettings.playerShootCD
+                ProjectileSprite = GameSettings.rootPath + settings.ProjectileSprite,
+                ProjectileSpeed = settings.ProjectileSpeed,
+                dmg = settings.Dmg,
+                coolDown = settings.ShootCD
 
             };
-        }
 
+            // Life
+            var life = new Life(this)
+            {
+                maxHP = settings.HP,
+                hpRegen = settings.HPRegen
+            };
+            life.Init();
+
+            if (IsAI)
+            {   
+            }
+            else
+            {
+            }
+        }
+        
         private void OnColliding(object sender, Collider other)
         {
             if (other.isTrigger || MyCollider.isTrigger)

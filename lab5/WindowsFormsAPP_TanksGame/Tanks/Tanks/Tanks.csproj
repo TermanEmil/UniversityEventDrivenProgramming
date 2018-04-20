@@ -52,7 +52,9 @@
     <Compile Include="BuisnessLogic\Concrete\GameSettings.cs" />
     <Compile Include="BuisnessLogic\Concrete\HollywoodEffect.cs" />
     <Compile Include="BuisnessLogic\Concrete\Map.cs" />
+    <Compile Include="BuisnessLogic\Concrete\Player.cs" />
     <Compile Include="BuisnessLogic\Input.cs" />
+    <Compile Include="BuisnessLogic\Life.cs" />
     <Compile Include="BuisnessLogic\Projectile.cs" />
     <Compile Include="BuisnessLogic\Concrete\Tank.cs" />
     <Compile Include="BuisnessLogic\GameController.cs" />

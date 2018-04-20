@@ -53,6 +53,11 @@ namespace Tanks.BuisnessLogic
                     effectPos,
                     effectTime: 0.4f,
                     scale: new PointF(0.2f, 0.2f)));
+
+            var life = other.gameObject.GetComponent<Life>();
+            if (life != null)
+                life.TakeDmg(Dmg);
+
             GameObject.Destroy(this);
         }
     }

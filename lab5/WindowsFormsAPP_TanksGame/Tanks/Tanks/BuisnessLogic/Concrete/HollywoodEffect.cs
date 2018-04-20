@@ -22,7 +22,7 @@ namespace Tanks.BuisnessLogic.Concrete
             
             mesh = new Mesh(
                 this,
-                GameSettings.GetPath(GameSettings.boomEffect),
+                GameSettings.rootPath + GameSettings.boomEffect,
                 GameController.instance.mainGraphics);
 
             transform.position.X = pos.X - mesh.Image.Width / 2 * transform.scale.X;

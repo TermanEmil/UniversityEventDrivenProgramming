@@ -26,7 +26,7 @@ namespace Tanks.BuisnessLogic
                 Point.Round(MyTransform.position),
                 rectangle.Size);
 
-            foreach (var collider in ColliderCtrl.Instance.colliders)
+            foreach (var collider in ColliderCtrl.Instance.colliders.ToArray())
             {
                 if (collider == this)
                     continue;

@@ -5,13 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tanks.BuisnessLogic.Concrete;
 
 namespace Tanks.BuisnessLogic
 {
     class GameController
     {
         public static GameController instance;
-        
+
+        public List<Tank> enemyTanks = new List<Tank>();
+        public Player player;
+
         public Graphics mainGraphics;
         
         private Timer _timer;
