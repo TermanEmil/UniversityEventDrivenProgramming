@@ -27,7 +27,7 @@ namespace Tanks.BuisnessLogic.Concrete
   
 
         private Point lastMovement = new Point(0, 0);
-        public long reactionTime = 9000000; // in ticks
+        public long reactionTime = 20000000; // in ticks
         private long lastTimeReacted = 0;
         private bool ItsTimeToReact
         {
