@@ -66,7 +66,7 @@ namespace Tanks.BuisnessLogic
         public T GetComponent<T>() where T : Property
         {
             foreach (var property in properties)
-                if (property.GetType() == typeof(T))
+                if (typeof(T).IsAssignableFrom(property.GetType()))
                     return property as T;
             return null;
         }
