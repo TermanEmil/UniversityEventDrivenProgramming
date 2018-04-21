@@ -19,50 +19,77 @@ namespace Tanks.BuisnessLogic.Concrete
         private ShootCtrl _schut;
         private Transform _thisTankTransform;
 
-        private float victimColliderWidth;
-        private float victimColliderHeight;
+        private float playerColliderWidth;
+        private float playerColliderHeight;
 
+        private Random getRandom = new Random();
 
-        private bool AllignedForShot(Transform shooter, PointF victim)
+  
+
+        private Point lastMovement = new Point(0, 0);
+        public long reactionTime = 7000000; // in ticks
+        private long lastTimeReacted = 0;
+        private bool ItsTimeToReact
         {
-            if (shooter.rotation == 0.0f)
-                return
-                    victim.Y < shooter.position.Y
-                    &&
-                    Math.Abs(victim.X - shooter.position.X) <= victimColliderWidth / 2;
-            else if (shooter.rotation == 90.0f)
-                return Math.Abs(victim.Y - shooter.position.Y) <= victimColliderHeight / 2
-                    && victim.X > shooter.position.X;
-            else if (shooter.rotation == 180.0f)
-                return victim.Y > shooter.position.Y
-                    && Math.Abs(victim.X - shooter.position.X) <= victimColliderWidth / 2;
-            else if (shooter.rotation == 270.0f)
-                return victim.X < shooter.position.X &&
-                    Math.Abs(victim.Y - shooter.position.Y) <= victimColliderHeight;
-            return false;
+            get
+            {
+                if (DateTime.Now.Ticks - lastTimeReacted >= reactionTime)
+                {
+                    lastTimeReacted = DateTime.Now.Ticks;
+                    return true;
+                } else
+                return false;
+            }
+        }
+        
+        private bool IsAllignedForShot
+        {
+           get
+            {
+                if (_thisTankTransform.rotation == 0.0f)
+                    return
+                        _playerPos.Y < _thisTankTransform.position.Y
+                        &&
+                        Math.Abs(_playerPos.X - _thisTankTransform.position.X) <= playerColliderWidth / 2;
+                else if (_thisTankTransform.rotation == 90.0f)
+                    return Math.Abs(_playerPos.Y - _thisTankTransform.position.Y) <= playerColliderHeight / 2
+                        && _playerPos.X > _thisTankTransform.position.X;
+                else if (_thisTankTransform.rotation == 180.0f)
+                    return _playerPos.Y > _thisTankTransform.position.Y
+                        && Math.Abs(_playerPos.X - _thisTankTransform.position.X) <= playerColliderWidth / 2;
+                else if (_thisTankTransform.rotation == 270.0f)
+                    return _playerPos.X < _thisTankTransform.position.X &&
+                        Math.Abs(_playerPos.Y - _thisTankTransform.position.Y) <= playerColliderHeight;
+                return false;
+            }
         }
 
         public override Point MovementAxix
         {
             get
             {
-                float verticalDiff = _thisTankTransform.position.Y - _playerPos.Y;
-                float horizontalDiff = _thisTankTransform.position.X - _playerPos.X;
-
-                int right = 0;
-                int up = 0;
-
-                if (Math.Abs(verticalDiff) > Math.Abs(horizontalDiff))
+                if (ItsTimeToReact)
                 {
-                    up = verticalDiff > 0 ? 1 : -1;
-                } else
-                {
-                    right = horizontalDiff > 0 ? -1 : 1;
-                }
-                if (AllignedForShot(_thisTankTransform, _playerPos))
-                    return new Point(0, 0);
-                return MovementAxis(right < 0, right > 0, up > 0, up < 0);
-            }
+                    float verticalDiff = _thisTankTransform.position.Y - _playerPos.Y;
+                    float horizontalDiff = _thisTankTransform.position.X - _playerPos.X;
+
+                    int right = 0;
+                    int up = 0;
+
+                    if (getRandom.Next(1) == 1 ? Math.Abs(verticalDiff) < Math.Abs(horizontalDiff) : Math.Abs(verticalDiff) > Math.Abs(horizontalDiff))
+                    {
+                        up = verticalDiff > 0 ? 1 : -1;
+                    }
+                    else
+                    {
+                        right = horizontalDiff > 0 ? -1 : 1;
+                    }
+                    if (IsAllignedForShot)
+                        return new Point(0, 0);
+                    lastMovement = MovementAxis(right < 0, right > 0, up > 0, up < 0);
+                    return lastMovement;
+                }else return lastMovement;
+            } 
         }
 
 
@@ -76,15 +103,15 @@ namespace Tanks.BuisnessLogic.Concrete
             _playerTransform = GameController.instance.player.gameObject.GetComponent<Transform>();
             _schut = gameObject.GetComponent<ShootCtrl>();
             _thisTankTransform = gameObject.GetComponent<Transform>();
-            victimColliderWidth = GameController.instance.player.gameObject.GetComponent<Collider>().rectangle.Width;
-            victimColliderHeight = GameController.instance.player.gameObject.GetComponent<Collider>().rectangle.Height;
+            playerColliderWidth = GameController.instance.player.gameObject.GetComponent<Collider>().rectangle.Width;
+            playerColliderHeight = GameController.instance.player.gameObject.GetComponent<Collider>().rectangle.Height;
         }
 
         
         public override void Update()
         {
             base.Update();
-            if (AllignedForShot(_thisTankTransform, _playerPos))
+            if (IsAllignedForShot)
                 _schut.Shoot(false);
         }
     }
