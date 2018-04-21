@@ -27,7 +27,7 @@ namespace Tanks.BuisnessLogic.Concrete
   
 
         private Point lastMovement = new Point(0, 0);
-        public long reactionTime = 7000000; // in ticks
+        public long reactionTime = 9000000; // in ticks
         private long lastTimeReacted = 0;
         private bool ItsTimeToReact
         {
@@ -57,7 +57,7 @@ namespace Tanks.BuisnessLogic.Concrete
                 else if (_thisTankTransform.rotation == 180.0f)
                     return _playerPos.Y > _thisTankTransform.position.Y
                         && Math.Abs(_playerPos.X - _thisTankTransform.position.X) <= playerColliderWidth / 2;
-                else if (_thisTankTransform.rotation == 270.0f)
+                else if (_thisTankTransform.rotation == -90.0f)
                     return _playerPos.X < _thisTankTransform.position.X &&
                         Math.Abs(_playerPos.Y - _thisTankTransform.position.Y) <= playerColliderHeight;
                 return false;
@@ -68,6 +68,8 @@ namespace Tanks.BuisnessLogic.Concrete
         {
             get
             {
+                if (IsAllignedForShot)
+                    return new Point(0, 0);
                 if (ItsTimeToReact)
                 {
                     float verticalDiff = _thisTankTransform.position.Y - _playerPos.Y;
@@ -84,8 +86,7 @@ namespace Tanks.BuisnessLogic.Concrete
                     {
                         right = horizontalDiff > 0 ? -1 : 1;
                     }
-                    if (IsAllignedForShot)
-                        return new Point(0, 0);
+                    
                     lastMovement = MovementAxis(right < 0, right > 0, up > 0, up < 0);
                     return lastMovement;
                 }else return lastMovement;

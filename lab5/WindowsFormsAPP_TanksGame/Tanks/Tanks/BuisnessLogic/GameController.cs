@@ -40,6 +40,7 @@ namespace Tanks.BuisnessLogic
         {
             _timer.Tick();
             gameObjects.ToList().ForEach(x => x.Update());
+            Concrete.EnemySpawner.Instance.Update();
         }
 
         public void Paint()

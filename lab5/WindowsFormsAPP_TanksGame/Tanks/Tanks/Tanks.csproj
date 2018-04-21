@@ -50,6 +50,7 @@
     <Compile Include="BuisnessLogic\ColliderCtrl.cs" />
     <Compile Include="BuisnessLogic\Concrete\Border.cs" />
     <Compile Include="BuisnessLogic\Concrete\EnemyCharacterController.cs" />
+    <Compile Include="BuisnessLogic\Concrete\EnemySpawner.cs" />
     <Compile Include="BuisnessLogic\Concrete\GameSettings.cs" />
     <Compile Include="BuisnessLogic\Concrete\HollywoodEffect.cs" />
     <Compile Include="BuisnessLogic\Concrete\Map.cs" />

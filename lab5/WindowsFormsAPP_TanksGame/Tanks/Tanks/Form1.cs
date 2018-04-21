@@ -51,14 +51,13 @@ namespace Tanks
 
             // Tank pos
             playerTank.transform.position = new PointF(120, 50);
-            enemy1.transform.position = new PointF(100, 100);
+            //enemy1.transform.position = new PointF(100, 100);
 
             // Init map
             GameObject.Instantiate(new Map(mainDrawContext.Width, mainDrawContext.Height));
 
             // Init timer
             timer1.Start();
-            gmCtrl.Start();
         }
 
         private void timer1_Tick(object sender, EventArgs e)

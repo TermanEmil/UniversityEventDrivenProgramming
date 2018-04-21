@@ -14,6 +14,9 @@ namespace Tanks.BuisnessLogic
         public static T Instantiate<T>(T gameObject) where T : GameObject
         {
             GameController.instance.gameObjects.Add(gameObject);
+            if (gameObject.GetComponent<Concrete.EnemyCharacterController>() != null)
+                Concrete.EnemySpawner.Instance.enemyTanks.Add(gameObject);
+            gameObject.Start();
             return gameObject;
         }
 
@@ -22,7 +25,8 @@ namespace Tanks.BuisnessLogic
             var collider = gameObject.GetComponent<Collider>();
             if (collider != null)
                 ColliderCtrl.Instance.colliders.Remove(collider);
-
+            if (gameObject.GetComponent<Concrete.EnemyCharacterController>() != null)
+                Concrete.EnemySpawner.Instance.enemyTanks.Remove(gameObject);
             GameController.instance.gameObjects.Remove(gameObject);
         }
 

@@ -50,7 +50,7 @@ namespace Tanks.BuisnessLogic
 
         public void Die()
         {
-            onDie.Invoke(this, null);
+            onDie?.Invoke(this, null);
             GameObject.Destroy(gameObject);
         }
     }
