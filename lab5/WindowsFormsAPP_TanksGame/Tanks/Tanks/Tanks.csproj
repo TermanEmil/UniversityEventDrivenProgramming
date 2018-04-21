@@ -49,6 +49,7 @@
     <Compile Include="BuisnessLogic\Collider.cs" />
     <Compile Include="BuisnessLogic\ColliderCtrl.cs" />
     <Compile Include="BuisnessLogic\Concrete\Border.cs" />
+    <Compile Include="BuisnessLogic\Concrete\EnemyCharacterController.cs" />
     <Compile Include="BuisnessLogic\Concrete\GameSettings.cs" />
     <Compile Include="BuisnessLogic\Concrete\HollywoodEffect.cs" />
     <Compile Include="BuisnessLogic\Concrete\Map.cs" />
@@ -73,6 +74,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BuisnessLogic\Concrete\PlayerCharacterController.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

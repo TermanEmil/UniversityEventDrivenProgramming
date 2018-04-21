@@ -58,6 +58,7 @@ namespace Tanks
 
             // Init timer
             timer1.Start();
+            gmCtrl.Start();
         }
 
         private void timer1_Tick(object sender, EventArgs e)

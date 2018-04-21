@@ -31,6 +31,11 @@ namespace Tanks.BuisnessLogic
             new Input(keyboardCtrl);
         }
 
+        public void Start()
+        {
+            gameObjects.ForEach(x => x.Start());
+        }
+
         public void Update()
         {
             _timer.Tick();

@@ -39,10 +39,10 @@ namespace Tanks.BuisnessLogic
         {
             base.Update();
 
-            if (_isKeyboardControlled && Input.PressedKeys.Get(' '))
-                Shoot(false);
-            if (!_isKeyboardControlled)
-                Shoot(false);
+            //if (_isKeyboardControlled && Input.PressedKeys.Get(' '))
+            //    Shoot(false);
+            //if (!_isKeyboardControlled)
+            //    Shoot(false);
         }
 
         public Projectile Shoot(bool forced = true)

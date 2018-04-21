@@ -30,10 +30,16 @@ namespace Tanks.BuisnessLogic.Concrete
                 GameSettings.rootPath + settings.Sprite,
                 GameController.instance.mainGraphics);
 
-            CharCtrl = new CharacterController(this, isKeyboardControlled: !IsAI)
-            {
-                Speed = settings.MovementSpeed
-            };
+            if (!IsAI)
+                CharCtrl = new PlayerCharacterController(this)
+                {
+                    Speed = settings.MovementSpeed
+                };
+            else
+                CharCtrl = new EnemyCharacterController(this)
+                {
+                    Speed = settings.MovementSpeed
+                };
 
             // Collider
             var collider = new Collider(this)

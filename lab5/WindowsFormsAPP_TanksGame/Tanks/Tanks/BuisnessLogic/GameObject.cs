@@ -48,6 +48,11 @@ namespace Tanks.BuisnessLogic
             properties.Add(newProperty);
         }
 
+        public virtual void Start()
+        {
+            properties.ForEach(x => x.Start());
+        }
+
         public virtual void Update()
         {
             properties.ForEach(x => x.Update());

@@ -22,6 +22,10 @@ namespace Tanks.BuisnessLogic
             gameObject.AddProperty(this);
         }
 
+        public virtual void Start()
+        {
+        }
+
         public virtual void Update()
         {
         }
