@@ -43,15 +43,11 @@ namespace Tanks
             var playerTank = GameObject.Instantiate(new Tank(isAI: false));
             gmCtrl.player = new Player(playerTank, this);
 
-            var enemy1 = GameObject.Instantiate(new Tank(isAI: true));
-            gmCtrl.enemyTanks.Add(enemy1);
-
             // Init enemies events
             gmCtrl.enemyTanks.ForEach(x => gmCtrl.player.ConfigTankEvents(x));
 
             // Tank pos
             playerTank.transform.position = new PointF(120, 50);
-            //enemy1.transform.position = new PointF(100, 100);
 
             // Init map
             GameObject.Instantiate(new Map(mainDrawContext.Width, mainDrawContext.Height));

@@ -69,7 +69,8 @@ namespace Tanks.BuisnessLogic.Concrete
             life.Init();
 
             if (IsAI)
-            {   
+            {
+                life.onDie += GameController.instance.player.OnEnemyDie;
             }
             else
             {
