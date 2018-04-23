@@ -27,8 +27,8 @@ namespace Tanks.BuisnessLogic.Concrete
         private double nextShoot = -1;
         private Point lastMovement = new Point(0, 0);
 
-        public int reactionTimeMin = 15000000;
-        public int reactionTimeMax = 20000000;
+        public int reactionTimeMin = 08000000;
+        public int reactionTimeMax = 12000000;
 
         private double nextShootTemp = 1.5d;
 

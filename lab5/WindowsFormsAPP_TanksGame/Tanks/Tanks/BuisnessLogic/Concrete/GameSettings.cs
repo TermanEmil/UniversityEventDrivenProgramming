@@ -28,7 +28,7 @@ namespace Tanks.BuisnessLogic.Concrete
         public float ShootCD { get; set; } = 0.6f;
         public float Dmg { get; set; } = 100;
         public float HP { get; set; } = 600;
-        public float HPRegen { get; set; } = 5;
+        public float HPRegen { get; set; } = 2;
     }
 
     public class EnemyTankSettings : ITankSettings

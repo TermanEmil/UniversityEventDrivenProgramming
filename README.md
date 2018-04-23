@@ -8,3 +8,5 @@ Each lab will contain a `src` (for .cpp files) and an `includes` (for .hpp files
 * [lab#1](./lab1)
 * [lab#2](./lab2)
 * [lab#3](./lab3)
+* [lab#4](./lab5)
+* [lab#5](./lab5)
