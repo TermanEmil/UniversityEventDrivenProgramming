@@ -10,6 +10,15 @@ namespace Tanks.BuisnessLogic
     {
         public static Timer instance;
 
+        public static double Seconds
+        {
+            get
+            {
+                TimeSpan t = (DateTime.UtcNow - new DateTime(1970, 1, 1));
+                return t.TotalSeconds;
+            }
+        }
+
         public static double DeltaTime
         {
             get
@@ -33,5 +42,6 @@ namespace Tanks.BuisnessLogic
             _deltaTime = (newTicks - _lastTicks) / 1000000f;
             _lastTicks = newTicks;
         }
+        
     }
 }

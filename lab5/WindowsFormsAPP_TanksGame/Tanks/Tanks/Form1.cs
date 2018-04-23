@@ -54,6 +54,8 @@ namespace Tanks
 
             // Init timer
             timer1.Start();
+
+            new EnemySpawner(mainDrawContext.Size);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

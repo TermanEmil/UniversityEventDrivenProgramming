@@ -24,12 +24,13 @@ namespace Tanks.BuisnessLogic.Concrete
 
         private Random getRandom = new Random();
 
-  
-
+        private double nextShoot = -1;
         private Point lastMovement = new Point(0, 0);
 
         public int reactionTimeMin = 15000000;
         public int reactionTimeMax = 20000000;
+
+        private double nextShootTemp = 1.5d;
 
         private long reactionTime
         {
@@ -122,8 +123,21 @@ namespace Tanks.BuisnessLogic.Concrete
         public override void Update()
         {
             base.Update();
-            if (IsAllignedForShot)
-                _schut.Shoot(false);
+            if (nextShoot == -1)
+                UpdateNextShoot();
+            if (Timer.Seconds > nextShoot)
+                Shoot();
+        }
+
+        private void Shoot()
+        {
+            _schut.Shoot(false);
+            UpdateNextShoot();
+        }
+
+        private void UpdateNextShoot()
+        {
+            nextShoot = Timer.Seconds + getRandom.NextDouble() * nextShootTemp + _schut.coolDown;
         }
     }
 }

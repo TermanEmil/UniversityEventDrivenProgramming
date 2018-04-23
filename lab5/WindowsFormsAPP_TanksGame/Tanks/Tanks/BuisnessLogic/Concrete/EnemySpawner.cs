@@ -14,14 +14,19 @@ namespace Tanks.BuisnessLogic.Concrete
         {
             get
             {
-                if (_instance == null)
-                    _instance = new EnemySpawner();
                 return _instance;
             }
         }
 
         public int maxNumOfEnemies = 5;
-        private Random getRand = new Random();
+        private Random _getRand = new Random();
+        private Size _gameSize;
+
+        public EnemySpawner(Size gameSize)
+        {
+            _instance = this;
+            _gameSize = gameSize;
+        }
 
         public void Update()
         {
@@ -29,7 +34,10 @@ namespace Tanks.BuisnessLogic.Concrete
             if (enemyTanks.Count < maxNumOfEnemies)
             {
                 toBeSpawned = new Tank(isAI: true);
-                toBeSpawned.GetComponent<Transform>().position = new Point(getRand.Next(20, 40), getRand.Next(0, 400));
+                var pos = new Point(
+                    _getRand.Next(0, _gameSize.Width),
+                    _getRand.Next(0, _gameSize.Height));
+                toBeSpawned.transform.position = pos;
                 GameObject.Instantiate(toBeSpawned);
             }
         }
